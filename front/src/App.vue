@@ -1,11 +1,7 @@
-<template>
-  <div id="app">
-    <router-view/>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'App'
-}
+<script setup lang="ts">
+import ChartComponent from './components/ChartComponent.vue';
 </script>
+
+<template>
+  <ChartComponent/>
+</template>
