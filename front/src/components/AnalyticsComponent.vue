@@ -22,8 +22,8 @@ export default {
     data() {
         return {
             data: [],
-            associative: [],
-            products: [],
+            associative: [] as any,
+            products: [] as any,
         }
     },
     mounted() {

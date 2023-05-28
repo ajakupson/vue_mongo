@@ -15,7 +15,7 @@
 
         <div v-if="dateRangeType == 2">
             <select class="form-select form-select-lg ml-2" v-model="selectedDate">
-                <option v-for="(date, index) in dataDates" :value="date"> {{ date }}</option>
+                <option v-for="date in dataDates" :value="date"> {{ date }}</option>
             </select>
         </div>
     </div>
@@ -111,15 +111,15 @@ ChartJS.register(
 
                     if (!chartData[pCode][df]) {
                         chartData[pCode][df] = {};
-                        chartData[pCode][df]['oos'] = false;
+                        chartData[pCode][df]['oos'] = "no-data";
                     }
 
                     let pData = this.associative[pCode];
                     pData.forEach(pd => {
                         let d1 = moment.utc(pd.timestamp).format("DD/MM/YYYY HH:mm");
                         
-                        if (d1 == df && pd.roi_state == "oos") {
-                            chartData[pCode][df]['oos'] = true;
+                        if (d1 == df) {
+                            chartData[pCode][df]['oos'] = pd.roi_state;
                         }
                     });
 
@@ -130,25 +130,27 @@ ChartJS.register(
                             backgroundColor: productsColors[pCode]
                         };
 
-                        let cumulativeStartDt = false;
-                        let cumulativeEndDt = false;
+                        let cumulativeStartDt = "";
+                        let cumulativeEndDt = "";
                         for (const dt in chartData[pCode]) {
                             let duration = 0;
-                            if (chartData[pCode][dt]['oos']) {
+                            if (chartData[pCode][dt]['oos'] == "oos") {
                                 if (!cumulativeStartDt) {
                                     cumulativeStartDt = dt;
                                 }
-                            } else {
+                            }
+ 
+                            if (cumulativeStartDt) {
                                 cumulativeEndDt = dt;
-                                if (cumulativeStartDt) {
-                                    let d1 = moment(cumulativeStartDt, "DD/MM/YYYY HH:mm");
-                                    let d2 = moment(cumulativeEndDt, "DD/MM/YYYY HH:mm");
-                                    let difference = moment.duration(d2.diff(d1));
-                                    duration = (difference.hours() * 60 + difference.minutes()) / 60;
+                                let d1 = moment(cumulativeStartDt, "DD/MM/YYYY HH:mm");
+                                let d2 = moment(cumulativeEndDt, "DD/MM/YYYY HH:mm");
+                                let difference = moment.duration(d2.diff(d1));
+                                duration = (difference.hours() * 60 + difference.minutes()) / 60;
 
-                                    cumulativeStartDt = false;
-                                    cumulativeEndDt = false;
+                                if (!["oos", "no-data"].includes(chartData[pCode][dt]["oos"])) {
+                                    cumulativeStartDt = "";
                                 }
+                                cumulativeEndDt = "";
                             }
 
                             dataSets[pCode].data.push(duration);
@@ -188,7 +190,7 @@ ChartJS.register(
                         chartData[pCode][df] = {};
                         chartData[pCode][df]['roip'] = [];
                         chartData[pCode][df]['avg'] = 0;
-                        chartData[pCode][df]['oos'] = false;
+                        chartData[pCode][df]['oos'] = "no-data";
                     }
 
                     let pData = this.associative[pCode];
@@ -201,33 +203,34 @@ ChartJS.register(
                         }
                     });
 
-                    for(const pCode in chartData) {
+                    for (const pCode in chartData) {
                         dataSets[pCode] = {
                             label: pCode,
                             data: [],
                             backgroundColor: productsColors[pCode]
-
                         };
 
-                        let cumulativeStartDt = null;
-                        let cumulativeEndDt = null;
+                        let cumulativeStartDt = "";
+                        let cumulativeEndDt = "";
                         for (const dt in chartData[pCode]) {
                             let duration = 0;
                             if (chartData[pCode][dt]['avg'] < 0.3) {
                                 if (!cumulativeStartDt) {
                                     cumulativeStartDt = dt;
                                 }
-                            } else {
+                            } 
+                            
+                            if (cumulativeStartDt) {
                                 cumulativeEndDt = dt;
-                                if (cumulativeStartDt) {
-                                    let d1 = moment(cumulativeStartDt, "DD/MM/YYYY HH:mm");
-                                    let d2 = moment(cumulativeEndDt, "DD/MM/YYYY HH:mm");
-                                    let difference = moment.duration(d2.diff(d1));
-                                    duration = (difference.hours() * 60 + difference.minutes()) / 60;
+                                let d1 = moment(cumulativeStartDt, "DD/MM/YYYY HH:mm");
+                                let d2 = moment(cumulativeEndDt, "DD/MM/YYYY HH:mm");
+                                let difference = moment.duration(d2.diff(d1));
+                                duration = (difference.hours() * 60 + difference.minutes()) / 60;
 
-                                    cumulativeStartDt = false;
-                                    cumulativeEndDt = false;
+                                if (chartData[pCode][dt]["avg"] > 0.3) {
+                                    cumulativeStartDt = "";
                                 }
+                                cumulativeEndDt = "";
                             }
 
                             dataSets[pCode].data.push(duration);
@@ -268,10 +271,10 @@ ChartJS.register(
 
     },
     watch: {
-        dateRangeType: function(nv, ov) {
+        dateRangeType: function() {
             this.topOOSGenerate();
         },
-        selectedDate: function(nv, ov) {
+        selectedDate: function() {
             this.topOOSGenerate();
         },
     }   

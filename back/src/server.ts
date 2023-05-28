@@ -2,14 +2,20 @@ import express from 'express';
 import http from 'http';
 import mongoose, {ConnectOptions} from "mongoose";
 import { config } from './config/config';
-import Logging from './library/logging';
+import Logging from './library/Logging';
 import dataRoutes from './routes/Data';
+import dotenv from 'dotenv';
+
+dotenv.config();
+console.log("process.env", process.env);
 
 const router = express();
 
 /** Connect to Mongo */
+const CONN_STRING = process.env.DB_CONN_STRING + "/" + process.env.DB_NAME;
 mongoose
-    .connect(config.mongo.url + '/' + config.mongo.db, {
+    .connect(CONN_STRING, {
+        dbName: process.env.DB_NAME,
         useNewUrlParser: true, 
         useUnifiedTopology: true,
         family: 4,

@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  #MongoDB services
+  mongo_db: 
+    container_name: db_container
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes: 
+      - mongo_db:/data/db
+
+  mongo_seeder:
+    image: mongo_seeder
+    build: ./mongo-seed/
+    depends_on:
+      - mongo_db
+
+  # Node API Services
+  api:
+    build: ./back/
+    ports:
+      - 4000:1337
+    environment:
+      PORT: 1337
+      DB_CONN_STRING: mongodb://db_container:27017
+      DB_NAME: envelope
+      DATA_COLLECTION_NAME: data
+    volumes:
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo_db
+
+  # Web
+  web:
+    build: ./front/
+    ports:
+      - 4001:4001
+    depends_on:
+      - api 
+
+volumes:
+  mongo_db: {}
+

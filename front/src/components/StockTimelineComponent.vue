@@ -13,7 +13,7 @@
             </label>
             <div v-if="dateRangeType == 2">
                 <select class="form-select form-select-lg ml-2" v-model="selectedDate">
-                    <option v-for="(date, index) in dataDates" :value="date"> {{ date }}</option>
+                    <option v-for="date in dataDates" :value="date"> {{ date }}</option>
                 </select>
             </div>
         </div>
@@ -221,10 +221,10 @@ ChartJS.register(
         }
     },
     watch: {
-        dateRangeType: function(nv, ov) {
+        dateRangeType: function() {
             this.stockTimeLineGenerate();
         },
-        selectedDate: function(nv, ov) {
+        selectedDate: function() {
             this.stockTimeLineGenerate();
         },
     }   

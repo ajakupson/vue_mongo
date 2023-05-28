@@ -17,13 +17,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="/products" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fa fa-product-hunt" aria-hidden="true"></i>
                             <span class="ms-1 d-none d-sm-inline">Products</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="/customers" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fa fa-users" aria-hidden="true"></i>
                             <span class="ms-1 d-none d-sm-inline">Customers</span>
                         </a>
