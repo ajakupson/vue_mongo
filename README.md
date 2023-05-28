@@ -1,7 +1,6 @@
 ```
 |   .gitignore
 |   docker-compose.yml
-|   tree.txt
 |   
 +---back
 |   |   .env
