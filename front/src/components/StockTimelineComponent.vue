@@ -63,13 +63,22 @@ ChartJS.register(
       return {
         dateRangeType: 1,
         selectedDate: null,
+        inProgress: true,
         stockTimelineChartData: {
           labels: [],
           datasets: []
         },
         stockTimelineChartOpts: {
           responsive: true,
-          maintainAspectRatio: true
+          maintainAspectRatio: true,
+          animation:{
+            onProgress: function (){
+                this.inProgress = true;
+            },
+            onComplete: function () {
+                this.inPreogress = false;
+            }
+    }
         }
       }
     },
