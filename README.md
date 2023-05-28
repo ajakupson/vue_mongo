@@ -1,3 +1,18 @@
+# Demo of analytics dashboard with Node.js, Express, TypeScript, MongoDB, Vue, Vue-ChartJs, Docker
+
+Easiest way to run:
+ - 1. Install Docker
+ - 2. From project's root folder run command:
+ ```
+ docker compose up
+ ```
+ It will create container and images for backend, frontend. It will also import data to MongoDB from data.json file
+ - 3. In browser type ``` http://localhost:4000/ping ``` for healthcheck.
+ ``` http://localhost:4000/data/get ``` is the API route to get all the data
+ - 4. In browser type ``` http://localhost:4001 ```. It will open Vue app.
+ - 5. Navigate to http://localhost:4001/charts by clicking on 'Analytics' menu option
+ 
+ ## Project structure:
 ```
 |   .gitignore
 |   docker-compose.yml
