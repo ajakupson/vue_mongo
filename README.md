@@ -24,9 +24,9 @@ Easiest way to run:
 |   |   package-lock.json
 |   |   package.json
 |   |   tsconfig.json
+|   |   .dockerignore
 |   |           
 |   +---src
-|       |   .dockerignore
 |       |   server.ts
 |       |   
 |       +---config
