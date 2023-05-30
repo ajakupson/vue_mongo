@@ -55,8 +55,6 @@ ChartJS.register(
   Legend
 )
   
-let inProgress = true;
-
   export default {
     name: 'BarChart',
     components: { Line },
@@ -74,12 +72,8 @@ let inProgress = true;
           maintainAspectRatio: true,
           animation:{
             onProgress: function (){
-                inProgress = true;
-                console.log("inp2", inProgress);
             },
             onComplete: function () {
-                inProgress = false;
-                console.log("inp", inProgress);
             }
          },
          plugins: {
