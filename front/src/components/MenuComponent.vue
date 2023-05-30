@@ -39,12 +39,22 @@
         font-weight: bold;
         font-size: 1.2rem;
     }
+    ul.nav {
+        width: 100%;
+    }
+    ul.nav li {
+        width: 100%;
+    }
     a.nav-link {
         color: #ffffff;
-        font-weight: bold;;
+        font-weight: bold;
+        padding-right: 10px;
     }
     a.nav-link i {
         color: #ffffff;
         margin: 0 10px;
+    }
+    a.nav-link:hover {
+        background-color: gray;
     }
 </style>

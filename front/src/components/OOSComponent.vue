@@ -70,7 +70,16 @@ ChartJS.register(
         },
         oosChartOpts: {
           responsive: true,
-          maintainAspectRatio: true
+          maintainAspectRatio: true,
+          plugins: {
+            title: {
+                display: true,
+                text: "OOS",
+                font: {
+                    size: 18
+                }
+            }
+        }
         }
       }
     },
@@ -127,7 +136,8 @@ ChartJS.register(
                         dataSets[pCode] = {
                             label: pCode,
                             data: [],
-                            backgroundColor: productsColors[pCode]
+                            backgroundColor: productsColors[pCode],
+                            borderColor: productsColors[pCode]
                         };
 
                         let cumulativeStartDt = "";
@@ -207,7 +217,8 @@ ChartJS.register(
                         dataSets[pCode] = {
                             label: pCode,
                             data: [],
-                            backgroundColor: productsColors[pCode]
+                            backgroundColor: productsColors[pCode],
+                            borderColor: productsColors[pCode]
                         };
 
                         let cumulativeStartDt = "";
@@ -281,36 +292,9 @@ ChartJS.register(
   }
   </script>
 
-  <style>
+  <style scoped>
     #oos-chart {
         width: 100% !important;
         height: 100% !important;
-    }
-    .lds-dual-ring {
-        display: inline-block;
-        width: 80px;
-        height: 80px;
-    }
-
-    .lds-dual-ring:after {
-        content: " ";
-        display: block;
-        width: 64px;
-        height: 64px;
-        margin: 8px;
-        border-radius: 50%;
-        border: 6px solid #646cff;
-        border-color: #646cff transparent #646cff transparent;
-        animation: lds-dual-ring 1.2s linear infinite;
-    }
-
-    @keyframes lds-dual-ring {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
     }
 </style>

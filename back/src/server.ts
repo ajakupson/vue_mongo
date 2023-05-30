@@ -7,8 +7,6 @@ import dataRoutes from './routes/Data';
 import dotenv from 'dotenv';
 
 dotenv.config();
-console.log("process.env", process.env);
-
 const router = express();
 
 /** Connect to Mongo */
