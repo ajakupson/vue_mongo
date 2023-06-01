@@ -21,7 +21,7 @@
     </div>
 
     <div>
-        <Line
+        <Bar
             id="oos-chart"
             :options="oosChartOpts"
             :data="oosChartData"
@@ -32,7 +32,7 @@
 <script lang="ts">
 import _ from 'lodash';
 import moment from 'moment';
-import { Line } from 'vue-chartjs';
+import { Line, Bar } from 'vue-chartjs';
 import { emitter } from '../eventBus';
 import productsColors from '../assets/products';
 import {
@@ -43,7 +43,8 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  BarElement
 } from 'chart.js'
   
 ChartJS.register(
@@ -53,12 +54,13 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  BarElement
 )
   
   export default {
     name: 'BarChart',
-    components: { Line },
+    components: { Bar },
     props: ["data", "associative", "products"],
     data() {
       return {
