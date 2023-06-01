@@ -1,5 +1,7 @@
 # Demo of analytics dashboard with Node.js, Express, TypeScript, MongoDB, Vue, Vue-ChartJs, Docker
 
+![app](app.png)
+
 Easiest way to run:
  - 1. Install Docker
  - 2. From project's root folder run command:
